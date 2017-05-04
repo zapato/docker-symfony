@@ -13,7 +13,7 @@ RUN composer --version
 
 # Set timezone
 RUN rm /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
@@ -31,8 +31,10 @@ RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-
 RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-
-RUN echo 'alias sf="php app/console"' >> ~/.bashrc
-RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
+# bash config
+RUN echo 'export LS_OPTIONS="--color=auto"' >> ~/.bashrc \
+RUN echo 'alias ls="ls $LS_OPTIONS"' >> ~/.bashrc \
+RUN echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc \
+RUN echo 'alias l="ls $LS_OPTIONS -lA"' >> ~/.bashrc \
 
 WORKDIR /var/www/symfony
